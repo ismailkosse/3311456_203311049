@@ -31,7 +31,7 @@ class KayitOl extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        child: Column(
+                        child: ListView(
                           children: [
                             buildkullanici(kullanici: "AD"),
                             SizedBox(height: 15),

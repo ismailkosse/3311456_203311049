@@ -7,8 +7,10 @@ class KayitOl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        body: Container(
+        body:SingleChildScrollView(child: Container(
+          height: screenHeight ,
             decoration: BoxDecoration(
                 image: DecorationImage(
               fit: BoxFit.cover,
@@ -71,7 +73,7 @@ class KayitOl extends StatelessWidget {
                           ],
                         ),
                       )
-                    ]))));
+                    ])))));
   }
 }
 
@@ -85,7 +87,8 @@ Widget buildkullanici({kullanici}) {
           ),
           labelText: kullanici,
           labelStyle: TextStyle(color: Colors.white),
-          border: OutlineInputBorder()),
+          border: OutlineInputBorder()
+  ),
     ),
   ]);
 }

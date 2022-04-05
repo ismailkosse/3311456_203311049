@@ -9,72 +9,73 @@ class KayitOl extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        body:SingleChildScrollView(child: Container(
-          height: screenHeight ,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage("assets/images/ArkaPlan.png"),
-            )),
-            child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 15.0,
-                ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        child: Text(
-                          "İSONEWSS ",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 35,
+        body: SingleChildScrollView(
+            child: Container(
+                height: screenHeight,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/images/ArkaPlan.png"),
+                )),
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0,
+                    ),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            child: Text(
+                              "İSONEWSS ",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 35,
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                      Container(
-                        child: Column(
-                          children: [
-                            buildkullanici(kullanici: "AD"),
-                            SizedBox(height: 15),
-                            buildkullanici(kullanici: "SOYADI"),
-                            SizedBox(height: 15),
-                            buildkullanici(kullanici: "E POSTA"),
-                            SizedBox(height: 15),
-                            buildkullanici(kullanici: " ŞİFRE"),
-                            SizedBox(height: 15),
-                            buildkullanici(kullanici: "ŞİFREYİ TEKRAR GİRNİZ"),
-                            SizedBox(height: 15),
-                            Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
+                          Container(
+                            child: Column(
+                              children: [
+                                buildkullanici(kullanici: "AD"),
+                                SizedBox(height: 15),
+                                buildkullanici(kullanici: "SOYADI"),
+                                SizedBox(height: 15),
+                                buildkullanici(kullanici: "E POSTA"),
+                                SizedBox(height: 15),
+                                buildkullanici(kullanici: " ŞİFRE"),
+                                SizedBox(height: 15),
+                                buildkullanici(
+                                    kullanici: "ŞİFREYİ TEKRAR GİRNİZ"),
+                                SizedBox(height: 15),
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          child: Text("GİRİŞ YAP"),
-                                          onPressed: () => gonder(
-                                              context: context,
-                                              widget: GirisSayfasi()))
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      MaterialButton(
-                                          color: Colors.white,
-                                          child: Text("ÜYE OL"),
-                                          onPressed: () => gonder(
-                                              context: context,
-                                              widget: HomePage()))
-                                    ],
-                                  ),
-                                ]),
-                          ],
-                        ),
-                      )
-                    ])))
-    );
+                                      Column(
+                                        children: [
+                                          MaterialButton(
+                                              color: Colors.white,
+                                              child: Text("GİRİŞ YAP"),
+                                              onPressed: () => gonder(
+                                                  context: context,
+                                                  widget: GirisSayfasi()))
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          MaterialButton(
+                                              color: Colors.white,
+                                              child: Text("ÜYE OL"),
+                                              onPressed: () => gonder(
+                                                  context: context,
+                                                  widget: HomePage()))
+                                        ],
+                                      ),
+                                    ]),
+                              ],
+                            ),
+                          )
+                        ])))));
   }
 }
 
@@ -88,8 +89,7 @@ Widget buildkullanici({kullanici}) {
           ),
           labelText: kullanici,
           labelStyle: TextStyle(color: Colors.white),
-          border: OutlineInputBorder()
-  ),
+          border: OutlineInputBorder()),
     ),
   ]);
 }

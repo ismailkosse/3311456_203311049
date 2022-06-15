@@ -1,5 +1,8 @@
-import 'package:deneme5/Ana%20sayfalar/anasayfa.dart';
+import 'package:deneme5/profili%C3%A7indekiler/ayarlar.dart';
 import 'package:flutter/material.dart';
+import '../profiliçindekiler/geri_bildirim.dart';
+import '../profiliçindekiler/gizlilik.dart';
+import '../widgets/build_Sekme_widget.dart';
 
 class Profil extends StatelessWidget {
   const Profil({Key? key}) : super(key: key);
@@ -8,65 +11,38 @@ class Profil extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            "PROFİL",
-            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          backgroundColor: Colors.white
-      ,foregroundColor: Colors.black,),
+        title: Text(
+          "PROFİL",
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+      ),
       body: SafeArea(
           child: ListView(
         children: [
-          buildsekme(sekmeadi: "AYARLAR", ikon: Icons.build),
-          buildsekme(sekmeadi: "GİZLİLİK", ikon: Icons.lock_outline),
-          buildsekme(sekmeadi: "GÜVENLİK", ikon: Icons.security),
-          buildsekme(sekmeadi: "ŞİFREMİ DEĞİŞTİR", ikon: Icons.vpn_key),
-          buildsekme(sekmeadi: "HESABIMI SİL", ikon: Icons.delete),
+          buildsekme(
+              sekmeadi: "AYARLAR",
+              ikon: Icons.build,
+              islem: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ayarlar()));
+              }),
+          buildsekme(
+              sekmeadi: "Gizlilik",
+              ikon: Icons.privacy_tip_sharp,
+              islem: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => gizlilik()));
+              }),
+          buildsekme(
+              sekmeadi: "Geri Bildirim",
+              ikon: Icons.feedback_rounded,
+              islem: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => GeriBildirim()));
+              }),
         ],
       )),
     );
   }
-}
-
-Widget buildsekme({required String sekmeadi, required IconData ikon}) {
-  return Container(
-    padding: EdgeInsets.all(15),
-    margin: EdgeInsets.only(bottom: 15, top: 20),
-    width: double.infinity,
-    decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              blurRadius: 4,
-              offset: Offset(0, 4)),
-        ]),
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Column(
-          children: [
-            Text(
-              sekmeadi,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            Icon(
-              ikon,
-              size: 25,
-              color: Colors.black,
-            )
-          ],
-        )
-      ],
-    ),
-  );
 }

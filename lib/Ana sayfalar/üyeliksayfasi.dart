@@ -1,9 +1,44 @@
 import 'package:deneme5/Ana%20sayfalar/GirisSayfasi.dart';
 import 'package:deneme5/Ana%20sayfalar/anasayfa.dart';
+import 'package:deneme5/firebase/kullan%C4%B1c%C4%B1.dart';
+import 'package:deneme5/firebase/firebase_dosyasi.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../komut.dart';
+import '../widgets/build_kullanici_widget.dart';
 
 class KayitOl extends StatelessWidget {
-  const KayitOl({Key? key}) : super(key: key);
+  KayitOl({Key? key}) : super(key: key);
+
+  Future<void> kayit(eposta, sifre, context) async {
+    try {
+      Users users = Users(
+          ad: nameController.text.toString(),
+          email: emailController.text.toString(),
+          soyad: surnameController.text.toString(),
+          sifre: passwordController.text.toString());
+      final kullanici = firebaseservis().kullaniciolusturma(
+        eposta,
+        sifre,
+        users
+      );
+      gonder(context: context, widget: HomePage());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('Şifre güçsüz');
+      } else if (e.code == 'email-already-in-use') {
+        print('Bu eposta zaten kullanılmış');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController surnameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController password1Controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,16 +71,25 @@ class KayitOl extends StatelessWidget {
                           Container(
                             child: Column(
                               children: [
-                                buildkullanici(kullanici: "AD"),
-                                SizedBox(height: 15),
-                                buildkullanici(kullanici: "SOYADI"),
-                                SizedBox(height: 15),
-                                buildkullanici(kullanici: "E POSTA"),
-                                SizedBox(height: 15),
-                                buildkullanici(kullanici: " ŞİFRE"),
+                                buildkullanici(
+                                    kullanici: "AD",
+                                    controller: nameController),
                                 SizedBox(height: 15),
                                 buildkullanici(
-                                    kullanici: "ŞİFREYİ TEKRAR GİRNİZ"),
+                                    kullanici: "SOYADI",
+                                    controller: surnameController),
+                                SizedBox(height: 15),
+                                buildkullanici(
+                                    kullanici: "E POSTA",
+                                    controller: emailController),
+                                SizedBox(height: 15),
+                                buildkullanici(
+                                    kullanici: " ŞİFRE",
+                                    controller: passwordController),
+                                SizedBox(height: 15),
+                                buildkullanici(
+                                    kullanici: "ŞİFREYİ TEKRAR GİRNİZ",
+                                    controller: password1Controller),
                                 SizedBox(height: 15),
                                 Row(
                                     mainAxisAlignment:
@@ -66,9 +110,14 @@ class KayitOl extends StatelessWidget {
                                           MaterialButton(
                                               color: Colors.white,
                                               child: Text("ÜYE OL"),
-                                              onPressed: () => gonder(
-                                                  context: context,
-                                                  widget: HomePage()))
+                                              onPressed: () => {
+                                                    kayit(
+                                                        emailController.text
+                                                            .toString(),
+                                                        passwordController.text
+                                                            .toString(),
+                                                        context),
+                                                  })
                                         ],
                                       ),
                                     ]),
@@ -77,28 +126,4 @@ class KayitOl extends StatelessWidget {
                           )
                         ])))));
   }
-}
-
-Widget buildkullanici({kullanici}) {
-  return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-    TextFormField(
-      decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          labelText: kullanici,
-          labelStyle: TextStyle(color: Colors.white),
-          border: OutlineInputBorder()),
-    ),
-  ]);
-}
-
-void gonder({context, widget}) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) {
-      return widget;
-    }),
-  );
 }

@@ -8,15 +8,14 @@ class HaberKategori extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    backgroundColor: Colors.white
-        ,foregroundColor: Colors.black,),
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+        ),
         body: Center(
-      child: Stack(children: [
-
-        Text(sayfalar),
-      ]),
-         heightFactor: 15.0,
-    )
-    );
+          child: Stack(children: [
+            Text(sayfalar),
+          ]),
+          heightFactor: 15.0,
+        ));
   }
 }

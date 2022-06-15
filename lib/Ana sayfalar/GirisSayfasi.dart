@@ -1,8 +1,11 @@
 import 'package:deneme5/Ana%20sayfalar/%C3%BCyeliksayfasi.dart';
 import 'package:deneme5/Ana%20sayfalar/Sifremiunuttum.dart';
 import 'package:deneme5/Ana%20sayfalar/anasayfa.dart';
+import 'package:deneme5/firebase/firebase_dosyasi.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import '../komut.dart';
+import '../widgets/build_kullanici_widget.dart';
 class GirisSayfasi extends StatefulWidget {
   const GirisSayfasi({Key? key}) : super(key: key);
 
@@ -11,6 +14,24 @@ class GirisSayfasi extends StatefulWidget {
 }
 
 class _LoginPageState extends State<GirisSayfasi> {
+  Future<void> giris(eposta, sifre, context) async {
+    try {
+      final kullanici = firebaseservis().girisyapma(eposta, sifre);
+      gonder(context: context, widget: HomePage());
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('Şifre güçsüz');
+      } else if (e.code == 'email-already-in-use') {
+        print('Bu eposta zaten kullanılmış');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,9 +60,13 @@ class _LoginPageState extends State<GirisSayfasi> {
                     Container(
                       child: Column(
                         children: [
-                          buildkullanici(kullanici: "KULLANICI ADI"),
+                          buildkullanici(
+                              kullanici: "KULLANICI ADI",
+                              controller: emailController),
                           SizedBox(height: 25),
-                          buildkullanici(kullanici: "ŞİFRE"),
+                          buildkullanici(
+                              kullanici: "ŞİFRE",
+                              controller: passwordController),
                           SizedBox(height: 15),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,8 +87,12 @@ class _LoginPageState extends State<GirisSayfasi> {
                                     MaterialButton(
                                       color: Colors.white,
                                       child: Text("GİRİŞ YAP"),
-                                      onPressed: () => gonder(
-                                          context: context, widget: HomePage()),
+                                      onPressed: () => {
+                                        giris(
+                                            emailController.text.toString(),
+                                            passwordController.text.toString(),
+                                            context),
+                                      },
                                     ),
                                   ],
                                 ),
@@ -99,14 +128,5 @@ class _LoginPageState extends State<GirisSayfasi> {
                     )
                   ],
                 ))));
-  }
-
-  void gonder({context, widget}) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) {
-        return widget;
-      }),
-    );
   }
 }

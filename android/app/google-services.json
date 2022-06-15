@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906361476876",
+    "project_id": "haber-a0aef",
+    "storage_bucket": "haber-a0aef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906361476876:android:20f7786a098d7c2f0a1b29",
+        "android_client_info": {
+          "package_name": "com.example.deneme5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906361476876-i246865hfrn4vrm76cfoeoprbtmni83b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACFeO3f_B6ki_tfEWXTzS2UbFty2Xvg9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906361476876-i246865hfrn4vrm76cfoeoprbtmni83b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
